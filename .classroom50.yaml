@@ -1,0 +1,12 @@
+schema: "classroom50/repo-config/v1"
+classroom: "d3if-49-01"
+assignment: "praktikum-pbw2-v1"
+owner:
+  username: "alfinadwi3105"
+  id: 232987932
+  accepted_at: "2026-09-20T07:12:17Z"
+source:
+  owner: "d3rpla-pbw2"
+  owner_id: 327923699
+  repo: "pbw2-template-v1"
+  branch: "main"
