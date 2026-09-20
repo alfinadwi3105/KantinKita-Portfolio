@@ -1,0 +1,37 @@
+name: Uji Otomatis
+
+# Berjalan hanya di branch kerja (tp01, tp02, ...) dan di pull request.
+# Branch main sengaja tidak disertakan: di sana autograder Classroom 50 yang
+# bekerja, jadi kalau main ikut dipasang di sini satu merge memicu dua proses
+# dan kuota menit Actions terbuang dua kali lipat.
+on:
+  push:
+    branches:
+      - 'tp**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  uji:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, sqlite3, pdo_sqlite
+          coverage: none
+
+      - name: Memasang dependensi
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Menyiapkan berkas .env
+        run: |
+          cp -n .env.example .env
+          php artisan key:generate --force
+
+      - name: Menjalankan pengujian
+        run: php artisan test
