@@ -1,26 +1,28 @@
 <li class="kartu-menu">
     <span class="nama">
-        {{ $item['nama'] }}
+        {{ $item->name }}
     </span>
 
     <span class="label">
-        {{ $item['kategori'] }}
+        {{ $item->category->name }}
     </span>
 
     <span class="harga">
-        Rp{{ number_format($item['harga'], 0, ',', '.') }}
+        Rp{{ number_format($item->price, 0, ',', '.') }}
     </span>
 
-    @if ($item['stok'] === 0)
-        <span class="label-habis">Habis</span>
+    @if ($item->stock === 0)
+        <span class="label-habis">
+            Habis
+        </span>
     @else
         <span class="keterangan">
-            Stok: {{ $item['stok'] }}
+            Stok: {{ $item->stock }}
         </span>
     @endif
 
     <div class="keterangan">
-        <a href="{{ route('menu.show', $item['id']) }}">
+        <a href="{{ route('menu.show', $item) }}">
             Lihat detail
         </a>
     </div>
