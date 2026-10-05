@@ -25,5 +25,22 @@
         <a href="{{ route('menu.show', $item) }}">
             Lihat detail
         </a>
-    </div>
-</li>
+
+        <a href="{{ route('menu.edit', $item) }}">
+        Ubah
+    </a>
+
+    <form
+        class="aksi-hapus"
+        method="POST"
+        action="{{ route('menu.destroy', $item) }}"
+        onsubmit="return confirm('Yakin ingin menghapus menu ini?')"
+    >
+        @csrf
+        @method('DELETE')
+
+        <button type="submit" class="tombol-hapus">
+            Hapus
+        </button>
+    </form>
+</div>

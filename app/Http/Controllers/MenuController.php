@@ -85,10 +85,10 @@ class MenuController extends Controller
 
         $menu->update($tervalidasi);
 
-        return to_route('menu.show', $menu)
-            ->with(
-                'status',
-                'Menu "' . $menu->name . '" berhasil diperbarui.'
+        return to_route('menu.index')
+             ->with(
+                 'status',
+                 'Menu "' . $menu->name . '" berhasil diperbarui.'
             );
     }
 
