@@ -12,5 +12,4 @@ Route::get('/tentang', [TentangController::class, 'index'])
     ->name('tentang');
 
 Route::resource('menu', MenuController::class)
-    ->only(['index', 'create', 'store', 'show'])
     ->whereNumber('menu');

@@ -2,114 +2,106 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
-    private function menuAwal(): array
-    {
-        return [
-            [
-                'nama' => 'Nasi Goreng Spesial',
-                'kategori' => 'makanan',
-                'harga' => 18000,
-                'stok' => 12,
-                'catatan' => 'Pakai telur mata sapi'
-            ],
-            [
-                'nama' => 'Ayam Geprek',
-                'kategori' => 'makanan',
-                'harga' => 16000,
-                'stok' => 8,
-                'catatan' => 'Level pedas bisa dipilih'
-            ],
-            [
-                'nama' => 'Mie Ayam Bakso',
-                'kategori' => 'makanan',
-                'harga' => 15000,
-                'stok' => 0,
-                'catatan' => 'Tersedia mulai pukul 10.00'
-            ],
-            [
-                'nama' => 'Es Teh Manis',
-                'kategori' => 'minuman',
-                'harga' => 5000,
-                'stok' => 30,
-                'catatan' => null
-            ],
-            [
-                'nama' => 'Kopi Susu Gula Aren',
-                'kategori' => 'minuman',
-                'harga' => 12000,
-                'stok' => 15,
-                'catatan' => 'Favorit mahasiswa tingkat akhir'
-            ],
-        ];
-    }
+   public function index(Request $request)
+{
+    $menu = Menu::with('category')
+        ->when($request->category, function ($query, $category) {
+            $query->where('category_id', $category);
+        })
+        ->orderBy('name')
+        ->get();
 
-    private function semuaMenu(): array
-    {
-        $gabungan = array_merge(
-            $this->menuAwal(),
-            session('menu_tambahan', [])
-        );
+    $categories = Category::orderBy('name')->get();
 
-        foreach ($gabungan as $urutan => $item) {
-            $gabungan[$urutan]['id'] = $urutan + 1;
-            $gabungan[$urutan]['catatan'] = $item['catatan'] ?? null;
-        }
-
-        return $gabungan;
-    }
-
-    public function index()
-    {
-        return view('menu.index', [
-            'menu' => $this->semuaMenu()
-        ]);
-    }
+    return view('menu.index', [
+        'menu' => $menu,
+        'categories' => $categories,
+        'dipilih' => $request->category,
+    ]);
+}
 
     public function create()
     {
-        return view('menu.create');
+        $categories = Category::orderBy('name')->get();
+
+        return view('menu.create', [
+            'categories' => $categories,
+        ]);
     }
 
     public function store(Request $request)
-{
-    $tervalidasi = $request->validate(['stok' => ['required', 'integer', 'min:0'],
-        'nama' => ['required', 'string', 'max:60'],
-        'kategori' => ['required', 'in:makanan,minuman'],
-        'harga' => ['required', 'numeric', 'min:1000'],
-        'catatan' => ['nullable', 'string', 'max:255'],
-    ], [
-        'required' => 'Isian ini wajib diisi.',
-        'nama.max' => 'Nama menu paling panjang 60 karakter.',
-        'kategori.in' => 'Kategori hanya boleh makanan atau minuman.',
-        'harga.numeric' => 'Harga harus berupa angka.',
-        'harga.min' => 'Harga paling murah Rp1.000.',
-        'catatan.max' => 'Catatan paling panjang 255 karakter.',
-    ]);
-
-    $tervalidasi['catatan'] = $tervalidasi['catatan'] ?? null;
-
-    session()->push('menu_tambahan', $tervalidasi);
-
-    return to_route('menu.index')
-        ->with(
-            'status',
-            'Menu "' . $tervalidasi['nama'] . '" berhasil ditambahkan.'
-        );
-}
-
-    public function show(string $menu)
     {
-        $menu = collect($this->semuaMenu())
-            ->firstWhere('id', (int) $menu);
+        $tervalidasi = $request->validate([
+            'category_id' => ['required', 'integer', 'exists:categories,id'],
+            'name' => ['required', 'string', 'max:60'],
+            'price' => ['required', 'numeric', 'min:1000'],
+            'stock' => ['required', 'integer', 'min:0'],
+            'note' => ['nullable', 'string', 'max:255'],
+        ]);
 
-        abort_if($menu === null, 404);
+        Menu::create($tervalidasi);
+
+        return to_route('menu.index')
+            ->with(
+                'status',
+                'Menu "' . $tervalidasi['name'] . '" berhasil ditambahkan.'
+            );
+    }
+
+    public function show(Menu $menu)
+    {
+        $menu->load('category');
 
         return view('menu.show', [
-            'menu' => $menu
+            'menu' => $menu,
         ]);
+    }
+
+    public function edit(Menu $menu)
+    {
+        $categories = Category::orderBy('name')->get();
+
+        return view('menu.edit', [
+            'menu' => $menu,
+            'categories' => $categories,
+        ]);
+    }
+
+    public function update(Request $request, Menu $menu)
+    {
+        $tervalidasi = $request->validate([
+            'category_id' => ['required', 'integer', 'exists:categories,id'],
+            'name' => ['required', 'string', 'max:60'],
+            'price' => ['required', 'numeric', 'min:1000'],
+            'stock' => ['required', 'integer', 'min:0'],
+            'note' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $menu->update($tervalidasi);
+
+        return to_route('menu.index')
+             ->with(
+                 'status',
+                 'Menu "' . $menu->name . '" berhasil diperbarui.'
+            );
+    }
+
+    public function destroy(Menu $menu)
+    {
+        $nama = $menu->name;
+
+        $menu->delete();
+
+        return to_route('menu.index')
+            ->with(
+                'status',
+                'Menu "' . $nama . '" berhasil dihapus.'
+            );
     }
 }
