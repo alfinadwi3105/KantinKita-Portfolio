@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('judul', $menu->name)
@@ -42,5 +41,4 @@
     @endcan
     <a href="{{ route('menu.index') }}">&laquo; Kembali ke daftar menu</a>
 </p>
-
 @endsection

@@ -43,5 +43,4 @@
             </form>
         @endcan
     </div>
-
 </div>

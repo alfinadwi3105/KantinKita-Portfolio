@@ -46,5 +46,4 @@
         </li>
     @endforelse
 </ul>
-
 @endsection
