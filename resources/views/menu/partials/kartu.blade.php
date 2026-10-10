@@ -1,15 +1,16 @@
-<li class="kartu-menu">
-    <span class="nama">
-        {{ $item->name }}
-    </span>
+<div class="kartu-menu">
 
-    <span class="label">
-        {{ $item->category->name }}
-    </span>
+    <h3>{{ $item->name }}</h3>
 
-    <span class="harga">
+    <p>
+        <span class="label">
+            {{ $item->category->name }}
+        </span>
+    </p>
+
+    <p class="harga">
         Rp{{ number_format($item->price, 0, ',', '.') }}
-    </span>
+    </p>
 
     @if ($item->stock === 0)
         <span class="label-habis">
@@ -21,26 +22,26 @@
         </span>
     @endif
 
+    <p class="keterangan">
+        Catatan: {{ $item->note ?? '-' }}
+    </p>
+
     <div class="keterangan">
-        <a href="{{ route('menu.show', $item) }}">
-            Lihat detail
-        </a>
+        <a href="{{ route('menu.show', $item) }}">Lihat detail</a>
 
-        <a href="{{ route('menu.edit', $item) }}">
-        Ubah
-    </a>
+        @can('manage-menu')
+            <a href="{{ route('menu.edit', $item) }}">Ubah</a>
+        @endcan
 
-    <form
-        class="aksi-hapus"
-        method="POST"
-        action="{{ route('menu.destroy', $item) }}"
-        onsubmit="return confirm('Yakin ingin menghapus menu ini?')"
-    >
-        @csrf
-        @method('DELETE')
+        @can('delete-menu')
+            <form method="POST" class="aksi-hapus"
+                  action="{{ route('menu.destroy', $item) }}"
+                  onsubmit="return confirm('Hapus menu?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="tombol-hapus">Hapus</button>
+            </form>
+        @endcan
+    </div>
 
-        <button type="submit" class="tombol-hapus">
-            Hapus
-        </button>
-    </form>
 </div>

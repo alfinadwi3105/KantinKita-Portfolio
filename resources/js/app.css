@@ -1,0 +1,243 @@
+/* Kantin FIT — gaya dasar praktikum PBW2 */
+
+:root {
+    --merah: #c00000;
+    --tinta: #1b2026;
+    --redup: #6b7684;
+    --garis: #d9dee5;
+    --latar: #f7f8fa;
+    --hijau: #1e8e5a;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--latar);
+    color: var(--tinta);
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Navbar */
+header {
+    background: #fff;
+    border-bottom: 3px solid var(--merah);
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    gap: 30px;
+}
+
+header h1 {
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.navigasi {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+header nav a {
+    color: var(--tinta);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+header nav a:hover {
+    color: var(--merah);
+}
+
+/* Tombol Masuk dan Keluar */
+.aksi-login {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.aksi-login form {
+    margin: 0;
+}
+
+.tombol {
+    display: inline-block;
+    background: var(--merah);
+    color: #fff;
+    padding: 9px 16px;
+    border: 0;
+    border-radius: 6px;
+    font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.tombol:hover {
+    background: #990000;
+}
+
+/* Konten utama */
+main {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+/* Daftar menu */
+.daftar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0 0;
+}
+
+.kartu-menu {
+    background: #fff;
+    border: 1px solid var(--garis);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+}
+
+.kartu-menu .nama {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.kartu-menu .harga {
+    color: var(--merah);
+    font-weight: 700;
+}
+
+.kartu-menu .keterangan {
+    color: var(--redup);
+    font-size: 14px;
+}
+
+.label {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 99px;
+    font-size: 12px;
+    background: #eef1f5;
+    color: var(--redup);
+}
+
+.label-habis {
+    background: #fdf0f0;
+    color: #8e1414;
+    font-weight: 600;
+}
+
+/* Pesan notifikasi */
+.alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+}
+
+.alert-sukses {
+    background: #ecf6f1;
+    color: #146b45;
+    border: 1px solid #b9e0cd;
+}
+
+.alert-gagal {
+    background: #fdf0f0;
+    color: #8e1414;
+    border: 1px solid #f1cccc;
+}
+
+/* Form */
+.isian {
+    margin-bottom: 16px;
+}
+
+.isian label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.isian input,
+.isian select,
+.isian textarea {
+    width: 100%;
+    padding: 9px 11px;
+    border: 1px solid var(--garis);
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: inherit;
+    background: #fff;
+}
+
+.isian .salah {
+    border-color: var(--merah);
+}
+
+.pesan-salah {
+    color: var(--merah);
+    font-size: 13px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Kartu login */
+.kartu-login {
+    max-width: 420px;
+    margin: 30px auto;
+    background: #fff;
+    border: 1px solid var(--garis);
+    border-radius: 10px;
+    padding: 26px 28px 30px;
+}
+
+.kartu-login h2 {
+    margin-bottom: 18px;
+}
+
+/* Footer */
+footer {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 18px 20px 30px;
+    color: var(--redup);
+    font-size: 13px;
+    border-top: 1px solid var(--garis);
+}
+
+/* Tampilan layar kecil */
+@media (max-width: 650px) {
+    header {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .navigasi {
+        flex-basis: 100%;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    header nav {
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    .aksi-login {
+        margin-left: 0;
+    }
+}

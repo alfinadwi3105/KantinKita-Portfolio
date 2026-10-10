@@ -113,3 +113,51 @@ footer {
     font-size: 13px;
     border-top: 1px solid var(--garis);
 }
+.aksi-login {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.aksi-login form {
+    margin: 0;
+}
+
+.nama-pengguna {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.badge-peran {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: #eaf4fb;
+    color: #1f6e9c;
+}
+.halaman-403 {
+    max-width: 520px;
+    margin: 40px auto;
+    text-align: center;
+    background: #fff;
+    border: 1px solid var(--garis);
+    border-radius: 10px;
+    padding: 34px 28px;
+}
+
+.halaman-403 .kode {
+    margin: 0;
+    font-size: 54px;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--merah);
+}
+
+.halaman-403 p {
+    color: var(--redup);
+}
