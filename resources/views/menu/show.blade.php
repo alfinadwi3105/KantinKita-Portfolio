@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('judul', $menu->name)
@@ -35,28 +36,11 @@
 </div>
 
 <p>
-    <a href="{{ route('menu.edit', $menu) }}">
-        Ubah Menu
-    </a>
-</p>
-
-<form
-    method="POST"
-    action="{{ route('menu.destroy', $menu) }}"
-    onsubmit="return confirm('Yakin ingin menghapus menu ini?')"
->
-    @csrf
-    @method('DELETE')
-
-    <button type="submit" class="tombol">
-        Hapus Menu
-    </button>
-</form>
-
-<p>
-    <a href="{{ route('menu.index') }}">
-        &laquo; Kembali ke daftar menu
-    </a>
+    @can('manage-menu')
+        <a class="tombol"
+           href="{{ route('menu.edit', $menu) }}">Ubah menu ini</a>
+    @endcan
+    <a href="{{ route('menu.index') }}">&laquo; Kembali ke daftar menu</a>
 </p>
 
 @endsection

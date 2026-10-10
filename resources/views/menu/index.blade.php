@@ -11,9 +11,9 @@
 @endsession
 
 <p>
-    <a class="tombol" href="{{ route('menu.create') }}">
-        + Tambah Menu
-    </a>
+    @can('manage-menu')
+        <a class="tombol" href="{{ route('menu.create') }}">+ Tambah Menu</a>
+    @endcan
 </p>
 
 <form method="GET" action="{{ route('menu.index') }}">

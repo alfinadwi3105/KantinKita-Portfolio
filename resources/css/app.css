@@ -1,3 +1,4 @@
+
 @import 'tailwindcss';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -6,4 +7,142 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* Navbar authentication */
+header {
+    background: #fff;
+    border-bottom: 3px solid var(--merah);
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    gap: 30px;
+}
+
+header h1 {
+    margin: 0;
+    white-space: nowrap;
+}
+
+header .navigasi {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: space-between;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin: 0;
+    padding: 0;
+}
+.aksi-login {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.aksi-login form {
+    margin: 0;
+}
+.bar-pengguna {
+    margin-left: auto;
+    padding-left: 40px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.bar-pengguna form {
+    margin: 0;
+}
+
+.nama-pengguna {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.badge-peran {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 9px;
+    border-radius: 999px;
+}
+
+.badge-admin {
+    background: #fdf0f0;
+    color: #8e1414;
+}
+
+.badge-kasir {
+    background: #eaf4fb;
+    color: #1f6e9c;
+}
+
+.tombol-keluar {
+    background: none;
+    border: 1px solid var(--garis, #d1d5db);
+    color: var(--redup, #6b7280);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tombol-keluar:hover {
+    border-color: var(--merah, #dc2626);
+    color: var(--merah, #dc2626);
+}
+
+.kartu-login {
+    max-width: 420px;
+    margin: 30px auto;
+    background: #fff;
+    border: 1px solid var(--garis, #d1d5db);
+    border-radius: 10px;
+    padding: 26px 28px 30px;
+}
+
+.kartu-login h2 {
+    margin-bottom: 18px;
+}
+.halaman-403 {
+    max-width: 310px;
+    margin: 40px auto;
+    padding: 24px;
+    text-align: center;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+.halaman-403 .kode {
+    margin: 0;
+    color: #c21818;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.halaman-403 h2 {
+    margin: 0 0 14px;
+    font-size: 16px;
+}
+
+.halaman-403 .pesan-403 {
+    margin-bottom: 16px;
+    color: #6b7280;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.halaman-403 .tombol-403 {
+    display: inline-block;
+    background: #c21818;
+    color: white;
+    text-decoration: none;
 }
