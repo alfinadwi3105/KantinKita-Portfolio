@@ -27,15 +27,15 @@
     </p>
 
     <div class="keterangan">
-        <a href="{{ route('menu.show', $item) }}">Lihat detail</a>
+        <a href="{{ route('menu.show', $item->id) }}">Lihat detail</a>
 
         @can('manage-menu')
-            <a href="{{ route('menu.edit', $item) }}">Ubah</a>
+            <a href="{{ route('menu.edit', $item->id) }}">Ubah</a>
         @endcan
 
         @can('delete-menu')
             <form method="POST" class="aksi-hapus"
-                  action="{{ route('menu.destroy', $item) }}"
+                  action="{{ route('menu.destroy', $item->id) }}"
                   onsubmit="return confirm('Hapus menu?')">
                 @csrf
                 @method('DELETE')

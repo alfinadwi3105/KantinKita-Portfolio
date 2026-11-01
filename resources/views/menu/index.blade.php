@@ -6,6 +6,12 @@
 
 <h2>Daftar Menu Kantin FIT</h2>
 
+@if ($gagal)
+    <x-alert tipe="gagal">
+        Layanan menu sedang tidak bisa dihubungi. Daftar menu belum bisa ditampilkan - coba muat ulang beberapa saat lagi.
+    </x-alert>
+@endif
+
 @session('status')
     <x-alert tipe="sukses">{{ $value }}</x-alert>
 @endsession

@@ -11,7 +11,7 @@
         @foreach ($categories as $category)
             <option
                 value="{{ $category->id }}"
-                @selected(old('category_id', $menu->category_id ?? null) == $category->id)
+                @selected(old('category_id', $menu->category->id ?? null) == $category->id)
             >
                 {{ $category->name }}
             </option>
