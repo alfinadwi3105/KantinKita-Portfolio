@@ -25,9 +25,9 @@ class Tp051LayananTest extends TestCase
             ->getJson('/api/categories');
 
         $response->assertOk()
-            ->assertJsonCount(2)
-            ->assertJsonPath('0.name', 'Makanan')
-            ->assertJsonPath('1.name', 'Minuman');
+            ->assertJsonCount(2, 'data')
+            ->assertJsonPath('data.0.name', 'Makanan')
+            ->assertJsonPath('data.1.name', 'Minuman');
     }
 
     public function test_api_menus_menampilkan_data_menu_dan_kategori(): void

@@ -37,8 +37,14 @@
 <p>
     @can('manage-menu')
         <a class="tombol"
-         href="{{ route('menu.edit', $menu->id) }}">Ubah menu ini</a>
+           href="{{ route('menu.edit', $menu->id) }}">
+            Ubah menu ini
+        </a>
+    @endcan
 
-    <a href="{{ route('menu.index') }}">&laquo; Kembali ke daftar menu</a>
+    <a href="{{ route('menu.index') }}">
+        &laquo; Kembali ke daftar menu
+    </a>
 </p>
+
 @endsection
