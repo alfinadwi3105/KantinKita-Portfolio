@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('judul', 'Akses ditolak')
-
 @section('isi')
     <div class="halaman-403">
         <p class="kode">403</p>

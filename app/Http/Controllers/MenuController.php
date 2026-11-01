@@ -1,28 +1,54 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Category;
-use App\Models\Menu;
+
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Http;
 
 class MenuController extends Controller
 {
+    private function api(): PendingRequest
+    {
+        return Http::baseUrl(config('services.menu_api.url'))
+            ->withHeaders(['X-API-KEY' => config('services.menu_api.key')])
+            ->timeout(5);
+    }
+
     public function index(Request $request)
     {
-        $menu = Menu::with('category')
-            ->when($request->category, function ($query, $category) {
-                $query->where('category_id', $category);
-            })
-            ->orderBy('name')
-            ->get();
+        try {
+            $menu = $this->api()->get('/menus', [
+                'category' => $request->category,
+            ]);
 
-        $categories = Category::orderBy('name')->get();
+            $categories = $this->api()->get('/categories');
 
-        return view('menu.index', [
-            'menu' => $menu,
-            'categories' => $categories,
-            'dipilih' => $request->category,
+            if ($menu->failed() || $categories->failed()) {
+            return $this->kosong();
+            }
+
+            return view('menu.index', [
+                'menu' => $menu->object()->data,
+                'categories' => $categories->object()->data,
+                'dipilih' => $request->category,
+                'gagal' => false,
+            ]);
+        } catch (ConnectionException $e) {
+            return $this->kosong();
+        }
+    }
+    
+    public function show(int $menu)
+    {
+        $res = $this->api()->get('/menus/' . $menu);
+
+        abort_if($res->status() === 404, 404);
+
+        return view('menu.show', [
+            'menu' => $res->object()->data,
         ]);
     }
 
@@ -30,10 +56,10 @@ class MenuController extends Controller
     {
         Gate::authorize('manage-menu');
 
-        $categories = Category::orderBy('name')->get();
+        $categories = $this->api()->get('/categories');
 
         return view('menu.create', [
-            'categories' => $categories,
+            'categories' => $categories->object()->data,
         ]);
     }
 
@@ -41,77 +67,83 @@ class MenuController extends Controller
     {
         Gate::authorize('manage-menu');
 
-        $tervalidasi = $request->validate([
-            'category_id' => ['required', 'integer', 'exists:categories,id'],
-            'name' => ['required', 'string', 'max:60'],
-            'price' => ['required', 'numeric', 'min:1000'],
-            'stock' => ['required', 'integer', 'min:0'],
-            'note' => ['nullable', 'string', 'max:255'],
-        ]);
+        $res = $this->api()->post('/menus', $request->only(
+            'category_id',
+            'name',
+            'price',
+            'stock',
+            'note',
+        ));
 
-        Menu::create($tervalidasi);
+        if ($res->status() === 422) {
+            return back()->withInput()->withErrors($res->json('errors'));
+        }
 
-        return to_route('menu.index')
-            ->with(
-                'status',
-                'Menu "' . $tervalidasi['name'] . '" berhasil ditambahkan.'
-            );
+        return to_route('menu.index')->with(
+            'status',
+            'Menu "' . $res->object()->data->name . '" berhasil ditambahkan.',
+        );
     }
 
-    public function show(Menu $menu)
-    {
-        $menu->load('category');
-
-        return view('menu.show', [
-            'menu' => $menu,
-        ]);
-    }
-
-    public function edit(Menu $menu)
+    public function edit(int $menu)
     {
         Gate::authorize('manage-menu');
 
-        $categories = Category::orderBy('name')->get();
+        $res = $this->api()->get('/menus/' . $menu);
+
+        abort_if($res->status() === 404, 404);
+
+        $categories = $this->api()->get('/categories');
 
         return view('menu.edit', [
-            'menu' => $menu,
-            'categories' => $categories,
+            'menu' => $res->object()->data,
+            'categories' => $categories->object()->data,
         ]);
     }
 
-    public function update(Request $request, Menu $menu)
+    public function update(Request $request, int $menu)
     {
         Gate::authorize('manage-menu');
 
-        $tervalidasi = $request->validate([
-            'category_id' => ['required', 'integer', 'exists:categories,id'],
-            'name' => ['required', 'string', 'max:60'],
-            'price' => ['required', 'numeric', 'min:1000'],
-            'stock' => ['required', 'integer', 'min:0'],
-            'note' => ['nullable', 'string', 'max:255'],
-        ]);
+        $res = $this->api()->put('/menus/' . $menu, $request->only(
+            'category_id',
+            'name',
+            'price',
+            'stock',
+            'note',
+        ));
 
-        $menu->update($tervalidasi);
+        if ($res->status() === 422) {
+            return back()->withInput()->withErrors($res->json('errors'));
+        }
 
-        return to_route('menu.index')
-            ->with(
-                'status',
-                'Menu "' . $menu->name . '" berhasil diperbarui.'
-            );
+        return to_route('menu.index')->with(
+            'status',
+            'Menu diperbarui.',
+        );
     }
 
-    public function destroy(Menu $menu)
+    public function destroy(int $menu)
     {
         Gate::authorize('delete-menu');
 
-        $nama = $menu->name;
+        $res = $this->api()->delete('/menus/' . $menu);
 
-        $menu->delete();
+        abort_if($res->status() === 404, 404);
 
-        return to_route('menu.index')
-            ->with(
-                'status',
-                'Menu "' . $nama . '" berhasil dihapus.'
-            );
+        return to_route('menu.index')->with(
+            'status',
+            'Menu dihapus.',
+        );
+    }
+
+    private function kosong()
+    {
+        return view('menu.index', [
+            'menu' => [],
+            'categories' => [],
+            'dipilih' => null,
+            'gagal' => true,
+        ]);
     }
 }

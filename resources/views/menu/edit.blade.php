@@ -12,7 +12,7 @@
     </x-alert>
 @endif
 
-<form method="POST" action="{{ route('menu.update', $menu) }}">
+<form method="POST" action="{{ route('menu.update', $menu->id) }}">
     @csrf
     @method('PUT')
 
@@ -22,7 +22,7 @@
         Simpan Perubahan
     </button>
 
-    <a href="{{ route('menu.show', $menu) }}">
+    <a href="{{ route('menu.show', $menu->id) }}">
         Batal
     </a>
 </form>

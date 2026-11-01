@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('judul', $menu->name)
@@ -38,9 +37,8 @@
 <p>
     @can('manage-menu')
         <a class="tombol"
-           href="{{ route('menu.edit', $menu) }}">Ubah menu ini</a>
-    @endcan
+         href="{{ route('menu.edit', $menu->id) }}">Ubah menu ini</a>
+
     <a href="{{ route('menu.index') }}">&laquo; Kembali ke daftar menu</a>
 </p>
-
 @endsection

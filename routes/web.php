@@ -1,23 +1,25 @@
-
 <?php
 
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\TentangController;
-use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [BerandaController::class, 'index'])->name('beranda');
+Route::redirect('/', '/menu')->name('beranda');
 
-Route::get('/tentang', [TentangController::class, 'index'])->name('tentang');
+Route::get('/tentang', [TentangController::class, 'index'])
+    ->name('tentang');
 
 Route::middleware('guest')->group(function () {
-    Route::get('/login', [LoginController::class, 'create'])->name('login');
+    Route::get('/login', [LoginController::class, 'create'])
+        ->name('login');
+
     Route::post('/login', [LoginController::class, 'store']);
 });
 
 Route::middleware('auth')->group(function () {
-    Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+    Route::post('/logout', [LoginController::class, 'destroy'])
+        ->name('logout');
 
     Route::resource('menu', MenuController::class)
         ->only(['index', 'show'])
