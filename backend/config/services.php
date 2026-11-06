@@ -39,4 +39,18 @@ return [
         ],
     ],
 
+    'cuaca' => [
+        'url' => env('CUACA_URL', 'https://api.open-meteo.com/v1'),
+        'lat' => env('CUACA_LAT', -6.973),
+        'lon' => env('CUACA_LON', 107.630),
+        'ttl' => env('CUACA_TTL', 600),
+    ],
+
+    'midtrans' => [
+        'server_key' => env('MIDTRANS_SERVER_KEY'),
+        'client_key' => env('MIDTRANS_CLIENT_KEY'),
+        'snap_url'   => env('MIDTRANS_SNAP_URL'),
+        'api_url'    => env('MIDTRANS_API_URL'),
+        'prefix'     => env('MIDTRANS_PREFIX', 'KF'),
+    ],
 ];

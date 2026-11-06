@@ -36,8 +36,17 @@ return [
     ],
 
     'menu_api' => [
-    'url' => env('MENU_API_URL', 'http://127.0.0.1:8001/api'),
-    'key' => env('MENU_API_KEY'),
+        'url' => env('MENU_API_URL', 'http://127.0.0.1:8001/api'),
+        'key' => env('MENU_API_KEY'),
+    ],
+
+    'midtrans' => [
+        'client_key' => env('MIDTRANS_CLIENT_KEY'),
+    ],
+
+    'peta' => [
+        'lat' => env('PETA_LAT', -6.973),
+        'lon' => env('PETA_LON', 107.630),
     ],
 
 ];

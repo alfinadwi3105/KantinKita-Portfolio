@@ -20,6 +20,28 @@
         <span class="keterangan">
             Stok: {{ $item->stock }}
         </span>
+
+        <form method="POST" action="{{ route('pesanan.store') }}">
+            @csrf
+
+            <input type="hidden" name="menu_id" value="{{ $item->id }}">
+
+            <label for="qty-{{ $item->id }}">Jumlah:</label>
+
+            <input
+                type="number"
+                id="qty-{{ $item->id }}"
+                name="qty"
+                min="1"
+                max="{{ $item->stock }}"
+                value="1"
+                required
+            >
+
+            <button type="submit" class="tombol">
+                Pesan
+            </button>
+        </form>
     @endif
 
     <p class="keterangan">
