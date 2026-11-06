@@ -6,6 +6,20 @@
 
 <h2>Daftar Menu Kantin FIT</h2>
 
+@if ($cuaca)
+    <p>
+        Suhu sekarang {{ $cuaca->suhu }}&deg;C
+    </p>
+@else
+    <p>
+        Suhu sekarang &mdash;
+    </p>
+@endif
+
+<p>
+    <small>Data cuaca: Open-Meteo</small>
+</p>
+
 @if ($gagal)
     <x-alert tipe="gagal">
         Layanan menu sedang tidak bisa dihubungi. Daftar menu belum bisa ditampilkan - coba muat ulang beberapa saat lagi.

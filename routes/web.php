@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PesananController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\LoginController;
@@ -20,6 +21,15 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'destroy'])
         ->name('logout');
+    Route::view('/peta', 'peta')->name('peta');
+
+
+    // Route untuk pesanan
+    Route::post('/pesanan', [PesananController::class, 'store'])
+        ->name('pesanan.store');
+
+    Route::get('/pesanan/{kode}', [PesananController::class, 'show'])
+        ->name('pesanan.show');
 
     Route::resource('menu', MenuController::class)
         ->only(['index', 'show'])
