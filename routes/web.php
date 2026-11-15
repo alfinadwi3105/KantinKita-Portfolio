@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\TentangController;
@@ -10,6 +11,12 @@ Route::redirect('/', '/menu')->name('beranda');
 
 Route::get('/tentang', [TentangController::class, 'index'])
     ->name('tentang');
+
+Route::get('/antrian', [AntrianController::class, 'index'])
+    ->name('antrian');
+
+Route::get('/antrian/data', [AntrianController::class, 'data'])
+    ->name('antrian.data');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'create'])
