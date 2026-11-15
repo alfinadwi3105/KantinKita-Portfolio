@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AntrianController;
 use App\Http\Controllers\Api\PesananController;
 use App\Http\Controllers\Api\CuacaController;
 use App\Http\Controllers\Api\CategoryController;
@@ -12,4 +13,5 @@ Route::middleware('api.key')->group(function () {
     Route::get('/cuaca', CuacaController::class);
     Route::post('/pesanan', [PesananController::class, 'store']);
     Route::get('/pesanan/{kode}', [PesananController::class, 'show']);
-});
+    Route::get('/antrian', [AntrianController::class, 'index']);
+    });

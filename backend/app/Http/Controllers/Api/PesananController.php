@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Antrian;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PesananResource;
+use App\Broker\Penerbit;
+use App\Pesan\PesanPesananDibayar;
 use App\Models\Menu;
 use App\Models\Pesanan;
 use App\Services\MidtransService;
@@ -52,8 +55,33 @@ class PesananController extends Controller
         if ($status !== null) {
             $pesanan->status = MidtransService::petakan($status);
             $pesanan->save();
+
+            if ($pesanan->status === 'lunas') {
+                $this->masukkanAntrian($pesanan);
+            }
         }
 
         return new PesananResource($pesanan);
+    }
+
+    private function masukkanAntrian(Pesanan $pesanan): Antrian
+    {
+        $antrian = Antrian::firstOrCreate(
+            ['kode' => $pesanan->kode],
+            [
+                'menu_id'      => $pesanan->menu_id,
+                'menu'         => $pesanan->menu->name,
+                'qty'          => $pesanan->qty,
+                'total'        => $pesanan->total,
+                'status'       => 'diproses',
+                'dipesan_pada' => now(),
+            ]);
+
+        if ($antrian->wasRecentlyCreated) {
+            app(Penerbit::class)->terbitkan(
+                PesanPesananDibayar::dari($antrian));
+        }
+
+        return $antrian;
     }
 }
