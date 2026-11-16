@@ -14,4 +14,4 @@ Route::middleware('api.key')->group(function () {
     Route::post('/pesanan', [PesananController::class, 'store']);
     Route::get('/pesanan/{kode}', [PesananController::class, 'show']);
     Route::get('/antrian', [AntrianController::class, 'index']);
-    });
+});

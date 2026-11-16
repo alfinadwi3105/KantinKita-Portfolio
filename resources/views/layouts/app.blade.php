@@ -25,6 +25,10 @@
             Menu
         </a>
 
+        <a href="{{ route('antrian') }}"
+            style="text-decoration: none; color: #333;">
+            Antrian
+        </a>
         <a href="{{ url('/tentang') }}"
            style="text-decoration: none; color: #333;">
             Tentang
