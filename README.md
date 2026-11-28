@@ -1,3 +1,101 @@
+# KantinKita
+
+KantinKita merupakan aplikasi berbasis web yang dikembangkan untuk membantu proses pengelolaan layanan kantin secara lebih terorganisasi.
+
+Proyek ini dibuat sebagai bagian dari praktikum Pemrograman Berbasis Web 2, Program Studi D3 Rekayasa Perangkat Lunak Aplikasi, Universitas Telkom.
+
+## 1. Latar Belakang / Masalah
+
+Pengelolaan layanan kantin membutuhkan sistem yang dapat membantu mengatur informasi menu, pesanan pelanggan, dan antrean agar proses pelayanan lebih terstruktur.
+
+## 2. Solusi
+
+KantinKita dikembangkan sebagai aplikasi berbasis web untuk mendukung pengelolaan layanan kantin melalui sistem informasi.
+
+## 3. Fitur Aplikasi
+
+- Pengelolaan informasi menu.
+- Pengelolaan pesanan.
+- Pengelolaan antrean.
+- Integrasi proses layanan kantin.
+
+## 4. Teknologi yang Digunakan
+
+- **PHP** – bahasa pemrograman backend.
+- **Laravel** – framework pengembangan aplikasi web.
+- **HTML** – menyusun struktur halaman web.
+- **CSS** – mengatur tampilan halaman web.
+- **JavaScript** – mendukung interaksi pada aplikasi.
+- **Database** – menyimpan dan mengelola data aplikasi.
+- **Git dan GitHub** – mengelola versi dan menyimpan kode proyek.
+
+## 5. Hasil Proyek
+
+KantinKita merupakan hasil penerapan pembelajaran Pemrograman Berbasis Web 2 dalam membangun aplikasi berbasis web.
+
+## 6. Dokumentasi
+
+Bagian ini berisi dokumentasi tampilan aplikasi KantinKita sebagai gambaran hasil pengembangan proyek.
+
+### Tampilan Halaman Tentang
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/8cd95151-4061-4afc-8477-30e57d0ee658" />
+
+### Tampilan Halaman Menu
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/b5f5e26b-e5f1-4d43-b549-72e263f17f9c" />
+
+### Tampilan Halaman Antrean
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/2102cf88-e32c-4bc0-a537-bafe7c24bc86" />
+## 7. Cara Menjalankan
+
+Berikut langkah-langkah untuk menjalankan aplikasi KantinKita di lingkungan lokal:
+
+1. Clone repository:
+   ```bash
+   git clone https://github.com/alfinadwi3105/KantinKita-Portfolio.git
+   ```
+
+2. Masuk ke folder proyek:
+   ```bash
+   cd KantinKita-Portfolio
+   ```
+
+3. Instal dependensi aplikasi:
+   ```bash
+   composer install
+   ```
+
+4. Salin file konfigurasi:
+   ```bash
+   copy .env.example .env
+   ```
+
+5. Buat application key:
+   ```bash
+   php artisan key:generate
+   ```
+
+6. Sesuaikan konfigurasi database pada file `.env` dengan pengaturan database lokal.
+
+7. Jalankan aplikasi:
+   ```bash
+   php artisan serve
+   ```
+
+8. Buka aplikasi melalui browser menggunakan alamat yang ditampilkan pada terminal.
+
+**Catatan:** Proyek ini memiliki folder `backend` dan `service-kitchen` sebagai bagian terpisah yang memiliki konfigurasi dan langkah menjalankan masing-masing layanan.
+
+## 8. Pengembang
+
+**Alfina Dwi H**
+
+Mahasiswa D3 Rekayasa Perangkat Lunak Aplikasi  
+Universitas Telkom
+
+
 # Praktikum Pemrograman Berbasis Web 2
 
 Repositori ini dipakai **sepanjang satu semester**. Kamu meng-clone sekali, lalu
